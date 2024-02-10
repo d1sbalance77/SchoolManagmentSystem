@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from teacher import (
-    GetAllTeachersValidator,
-    GetExactTeacherValidator,
+    # GetAllTeachersValidator,
+    # GetExactTeacherValidator,
     AddNewTeacherValidator,
     EditTeacherInfoValidator,
-    DeleteTeacherValidator,
+    # DeleteTeacherValidator,
 )
 from database.teacher_service import (
     get_all_teachers_db,

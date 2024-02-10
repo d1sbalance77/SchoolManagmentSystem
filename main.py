@@ -7,7 +7,7 @@ from database import Base,engine
 Base.metadata.create_all(bind=engine)
 
 
-app = FastAPI(title='SchoolManagmentSystem')
+app = FastAPI(title='SchoolManagmentSystem', docs_url='/')
 
 app.include_router(homework_router)
 app.include_router(student_router)
