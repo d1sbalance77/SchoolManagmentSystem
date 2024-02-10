@@ -8,7 +8,7 @@ SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
-# Function for the creating a DataBase if can't create, it will just close the DataBase
+# Function for the creating a DataBase and if can't create, it will just close the DataBase
 def get_db():
     db = SessionLocal()
 

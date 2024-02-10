@@ -1,9 +1,4 @@
 from pydantic import BaseModel,EmailStr
-from typing import Optional
-
-
-class GetAllTeachersValidator(BaseModel):
-    pass
 
 
 class GetExactTeacherValidator(BaseModel):

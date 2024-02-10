@@ -3,9 +3,10 @@ from teacher import (
     # GetAllTeachersValidator,
     # GetExactTeacherValidator,
     AddNewTeacherValidator,
-    EditTeacherInfoValidator,
+    # EditTeacherInfoValidator,
     # DeleteTeacherValidator,
 )
+
 from database.teacher_service import (
     get_all_teachers_db,
     get_exact_teacher_info,
@@ -45,13 +46,6 @@ async def get_exact_teacher_SubJect(teacher_id: int):
 
 
 
-
-
-
-
-
-
-
 # Add new teacher
 @teacher_router.post('/add-teacher', response_model=str)
 async def add_new_teacher(data: AddNewTeacherValidator):
@@ -68,10 +62,12 @@ async def add_new_teacher(data: AddNewTeacherValidator):
 
 # Edit teacher info
 @teacher_router.put('/edit-teacher/{teacher_id}', response_model=str)
-async def edit_teacher_info(data: EditTeacherInfoValidator):
+async def edit_teacher_info(teacher_id: int, new_salary,new_phone_number):
 
-    result = edit_teacher_info_db(data.teacher_id, data.edit_info, data.new_info)
+    result = edit_teacher_info_db(teacher_id,new_salary, new_phone_number)
+
     return result
+
 
 # Delete teacher
 @teacher_router.delete('/delete-teacher/{teacher_id}')

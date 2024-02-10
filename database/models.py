@@ -1,7 +1,6 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer
 from database import Base
-from datetime import datetime
+
 
 class Student(Base):
     __tablename__ = 'students'
@@ -13,6 +12,7 @@ class Student(Base):
     phone_number = Column(Integer, unique=True)
     city = Column(String)
     birthday = Column(Integer)
+
 
 
 class Teacher(Base):
@@ -33,8 +33,8 @@ class Homework(Base):
 
     homework_id = Column(Integer, primary_key=True)
     mark = Column(Integer)
-    homework_published_date = Column(DateTime)
-    homework_deadline = Column(DateTime)
+    homework_published_date = Column(Integer)
+    homework_deadline = Column(Integer)
     subject = Column(String)
     title = Column(String)
     description = Column(String)

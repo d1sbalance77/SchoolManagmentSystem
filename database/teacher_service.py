@@ -58,44 +58,21 @@ def add_new_teacher_db(name, surname, phone_number, email, expirience, teacher_s
     return 'New teacher was successfully registered'
 
 
-# def login_user_db(phone_number, password):
-#     db = next(get_db())
-#
-#     checker = db.query(User).filter_by(phone_number=phone_number,password=password).first()
-#
-#     if checker:
-#         if checker.password == password:
-#             return checker
-#         elif checker.password != password:
-#             return 'Incorrect password'
-#     else:
-#         return 'Error in data'
+def edit_teacher_info_db(teacher_id, new_salary,new_phone_number):
 
-
-
-def edit_teacher_info_db(teacher_id,edit_info,new_info):
     db = next(get_db())
 
-    exact_teacher = get_exact_teacher_info(teacher_id)
+    exact_teacher = db.query(Teacher).filter_by(teacher_id=teacher_id).first()
 
     if exact_teacher:
-        if edit_info == 'name':
-            exact_teacher.name = new_info
-
-        elif edit_info == 'surname':
-            exact_teacher.surname = new_info
-
-        elif edit_info == 'expirience':
-            exact_teacher.expirience = new_info
-
-        elif edit_info == 'subject':
-            exact_teacher.teacher_subject = new_info
+        exact_teacher.salary = new_salary
+        exact_teacher.phone_number = new_phone_number
 
         db.commit()
 
-        return 'Infromation about a teacher was successfully edited'
+        return 'Successfully edited'
     else:
-        return "Infromation about a teacher was not successfully edited"
+        return "Student not found"
 
 
 

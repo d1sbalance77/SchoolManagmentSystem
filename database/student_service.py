@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from database.models import Student
 from database import get_db
 
@@ -47,25 +45,20 @@ def add_new_student_db(student_id, name, surname, phone_number, email, city, bir
     return 'New Student successfully registered'
 
 
-def edit_student_info_db(student_id,edit_info,new_info):
+def edit_student_info_db(student_id, new_name, new_birthday):
     db = next(get_db())
 
-    exact_student = get_exact_student(student_id)
+    exact_student = db.query(Student).filter_by(student_id=student_id).first()
 
     if exact_student:
-        if edit_info == 'name':
-            exact_student.name = new_info
-
-        elif edit_info == 'birthday':
-            exact_student.birthday = new_info
-
+        exact_student.name = new_name
+        exact_student.birthday = new_birthday
 
         db.commit()
 
         return 'Successfully edited'
     else:
-        return "Do not successfully edited"
-
+        return "Student not found"
 
 
 def delete_student_db(student_id):

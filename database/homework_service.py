@@ -1,8 +1,7 @@
-from datetime import datetime
 from database.models import Homework
 from database import get_db
 
-
+# getting all homeworks
 def get_all_homeworks_db():
     db = next(get_db())
 
@@ -11,7 +10,7 @@ def get_all_homeworks_db():
     return {'status': 1, 'message': all_homeworks}
 
 
-
+# Getting exact homework by id
 def get_exact_homework(homework_id):
     db = next(get_db())
 
@@ -23,7 +22,8 @@ def get_exact_homework(homework_id):
         return 'This Homework does not exists in DataBase'
 
 
-def add_new_homework_db(homework_id,subject,title,description,homework_deadline):
+# Addinf new homework
+def add_new_homework_db(homework_id,mark,homework_published_date, homework_deadline,subject,title,description):
     db = next(get_db())
 
     checker = db.query(Homework).filter_by(homework_id=homework_id).first()
@@ -32,11 +32,14 @@ def add_new_homework_db(homework_id,subject,title,description,homework_deadline)
         return 'This Homework was already registered'
 
     else:
-        new_homework = Homework(subject=subject,
-                                title=title,
-                                description=description,
+        new_homework = Homework(homework_id=homework_id,
+                                mark=mark,
+                                homework_published_date=homework_published_date,
                                 homework_deadline=homework_deadline,
-                               )
+                                subject=subject,
+                                title=title,
+                                description=description)
+
 
     db.add(new_homework)
     db.commit()
@@ -44,29 +47,25 @@ def add_new_homework_db(homework_id,subject,title,description,homework_deadline)
     return 'New homework was successfully added'
 
 
-
-def edit_homework_info_db(homework_id, edit_info, new_info):
+# Edit homework info
+def edit_homework_info_db(homework_id, new_subject,new_title):
     db = next(get_db())
 
-    exact_homework = get_exact_homework(homework_id)
+    exact_homework = db.query(Homework).filter_by(homework_id=homework_id).first()
 
     if exact_homework:
-        if edit_info == 'title':
-            exact_homework.title = new_info
-
-        elif edit_info == 'description':
-            exact_homework.description = new_info
-
-        elif edit_info == 'homework_deadline':
-            exact_homework.homework_deadline = new_info
+        exact_homework.subject = new_subject
+        exact_homework.title = new_title
 
         db.commit()
 
-        return 'Homework details was successfully edited'
+        return 'Successfully edited'
     else:
-        return "Homework details was not successfully edited"
+        return "Student not found"
 
 
+
+# Deleting Homework
 def delete_homework_db(homework_id):
     db = next(get_db())
 

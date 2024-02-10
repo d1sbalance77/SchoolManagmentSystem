@@ -1,9 +1,7 @@
 from pydantic import BaseModel,EmailStr
-from typing import Optional
 
 
-# class GetAllStudentsValidator(BaseModel):
-#     pass
+
 
 class GetExactStudentValidator(BaseModel):
     student_id: int
@@ -19,8 +17,8 @@ class AddNewStudentValidator(BaseModel):
 
 class EditStudentInfoValidator(BaseModel):
     student_id: int
-    edit_info: str
-    new_info: str
+    new_name: str
+    new_birthday: int
 
 class DeleteStudentValidator(BaseModel):
     student_id: int

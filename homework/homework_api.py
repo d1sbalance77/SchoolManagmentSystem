@@ -3,7 +3,7 @@ from homework import (
 
     # GetExactHomeworkValidator,
     AddNewHomeworkValidator,
-    EditHomeworkInfoValidator,
+    # EditHomeworkInfoValidator,
     # DeleteHomeworkValidator,
 
 )
@@ -42,15 +42,18 @@ async def get_exact_homework_DataBase(homework_id: int,):
 # Add new homework
 @homework_router.post('/add-homework')
 async def add_new_homework(data: AddNewHomeworkValidator):
+
     homework_id = data.homework_id
+    mark = data.mark
+    homework_published_date = data.homework_published_date
+    homework_deadline = data.homework_deadline
     subject = data.subject
     title = data.title
     description = data.description
-    homework_deadline = data.homework_deadline
-    homework_published_date = data.homework_published_date
-    mark = data.mark
 
-    result = add_new_homework_db(homework_id, subject, title, description, homework_deadline,homework_published_date,mark)
+
+
+    result = add_new_homework_db(homework_id,mark,homework_published_date,homework_deadline ,subject, title, description)
 
     return {'message': result}
 
@@ -58,13 +61,10 @@ async def add_new_homework(data: AddNewHomeworkValidator):
 
 # Edit homework info
 @homework_router.put('/edit-homework')
-async def edit_homework_info(data: EditHomeworkInfoValidator):
-    homework_id = data.homework_id
-    edit_info = data.edit_info
-    new_info = data.new_info
+async def edit_homework_info(homework_id: int,new_description,new_title):
+    result = edit_homework_info_db(homework_id, new_description, new_title)
 
-    result = edit_homework_info_db(homework_id, edit_info, new_info)
-    return {'message': result}
+    return result
 
 
 # Delete homework

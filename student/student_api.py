@@ -1,10 +1,10 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from student import (
     AddNewStudentValidator,
-    DeleteStudentValidator,
-    EditStudentInfoValidator,
+    # DeleteStudentValidator,
+    # EditStudentInfoValidator,
     # GetAllStudentsValidator,
-    GetExactStudentValidator,
+    # GetExactStudentValidator,
 )
 from database.student_service import (
     get_all_students_db,
@@ -48,9 +48,9 @@ async def add_new_student(data: AddNewStudentValidator):
 
 
 # Edit student info
-@student_router.put('/edit-student/{student_id}', response_model=int)
-async def edit_student_info(student_id: int , data: EditStudentInfoValidator):
-    result = edit_student_info_db(student_id , data.edit_info, data.new_info)
+@student_router.put('/edit-student/{student_id}', response_model=str)
+async def edit_student_info(student_id: int ,new_name, new_birthday):
+    result = edit_student_info_db(student_id, new_name, new_birthday)
 
     return result
 
